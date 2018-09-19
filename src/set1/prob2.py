@@ -13,10 +13,14 @@
 # 746865206b696420646f6e277420706c6179
 
 import unittest
+import sys
 
 
 def xor(s1, s2):
-    return s1
+    i1 = int.from_bytes(bytes.fromhex(s1), byteorder=sys.byteorder)
+    i2 = int.from_bytes(bytes.fromhex(s2), byteorder=sys.byteorder)
+    iout = i1 ^ i2
+    return iout.to_bytes(len(bytes.fromhex(s1)), byteorder=sys.byteorder).hex()
 
 
 class TestProblem2(unittest.TestCase):
