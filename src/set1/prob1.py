@@ -13,16 +13,19 @@
 # Learn how to deal with different encodings in python
 
 import unittest
+import base64
+
 
 def from_hex(s):
-    return s
+    return bytes.fromhex(s)
+
 
 def to_base64(s):
-    return s
+    return base64.standard_b64encode(s).decode('utf-8')
 
 
 class TestProblem1(unittest.TestCase):
-    in_string = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d""
+    in_string = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"
     out_string = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t"
 
     def test_problem1(self):
