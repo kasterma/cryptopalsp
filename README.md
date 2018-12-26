@@ -1,6 +1,6 @@
 # CryptoPals
 
-Working on the challenges of the crypto pals problem set.
+Working on the challenges of the [crypto pals](http://cryptopals.com/) problem set.
 
 ## Notes: Set 1
 
