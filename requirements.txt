@@ -1,0 +1,9 @@
+# using local devpi server for caching
+-i http://localhost:8989/root/pypi/+simple/
+
+pytest
+ipython
+numpy
+pandas
+tox
+virtualenv
