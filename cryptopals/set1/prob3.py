@@ -101,3 +101,28 @@ cts = {k: Counter(v.decode('utf-8', errors='ignore'))
 dists = {k: dict_dist(target_freq, dict(ct)) for k, ct in cts.items()}
 
 best = {k: decodes[k].decode('utf-8') for k, ct in dists.items() if ct == min(dists.values())}
+
+# silly implementation of dictionary distance above
+from itertools import chain
+d1 = {1:2, 3: 4}
+d2 = {3: 5, 6: 7}
+
+list(chain(d1.items(), d2.items()))
+
+from collections import defaultdict
+from functools import reduce
+
+def red_f(a, b):
+    a[b[0]].append(b[1])
+    return a
+
+reduce(red_f, chain(d1.items(), d2.items()), defaultdict(list))
+
+
+def red_f(a, b):
+    a[b[0]].append(b[1])
+    return a
+
+reduce(red_f, chain(d1.items(), d2.items()), defaultdict(list)).items()
+reduce(lambda a, b: a + (20 if len(b[1]) == 1 else abs(b[1][0] - b[1][1])),
+       reduce(red_f, chain(d1.items(), d2.items()), defaultdict(list)).items(), 0)
