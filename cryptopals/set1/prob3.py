@@ -52,7 +52,8 @@ def dict_dist(d1: dict, d2: dict) -> int:
     keys = set(d1.keys()).union(set(d2.keys()))
     d = 0
     for key in keys:
-        d += abs(d1.get(key, 0) - d2.get(key, 0))
+        d += abs(d1.get(key, 20) - d2.get(key, 20))  # 20 is penalty for difference in keys
+        # this penalty makes sense since 20 is a large number compared to the length of the strings
     return d
 
 
@@ -84,6 +85,19 @@ eng_freq = {
     "y": 1.974,
     "z": 0.074}
 
-target_freq = {ord(c): v/100 * len(cypher1) for c, v in eng_freq.items()}
+target_freq = {c: v/100 * len(cypher1) for c, v in eng_freq.items()}
 
-decodes = [attempt(cypher1, i) for i in range(255)]
+decodes = {i: attempt(cypher1, i) for i in range(255)}
+
+import pandas as pd
+pd.Series(list(decodes[0].decode('utf-8'))).value_counts()
+
+from collections import Counter
+
+cts = {k: Counter(v.decode('utf-8', errors='ignore'))
+       for k, v in decodes.items()
+       if len(v) == len(v.decode('utf-8', errors='ignore'))}
+
+dists = {k: dict_dist(target_freq, dict(ct)) for k, ct in cts.items()}
+
+best = {k: decodes[k].decode('utf-8') for k, ct in dists.items() if ct == min(dists.values())}
