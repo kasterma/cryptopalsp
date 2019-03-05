@@ -15,7 +15,7 @@ def printable(i):
     """Is the integer i printable as ascii"""
     lower = int.from_bytes(bytes.fromhex('20'), sys.byteorder)
     upper = int.from_bytes(bytes.fromhex('7e'), sys.byteorder)
-    return lower <= i <= upper
+    return lower <= i <= upper or i == 10
 
 
 eng_freq = {
@@ -69,4 +69,13 @@ def dict_dist(d1: dict, d2: dict, miss_costs: int = 20) -> int:
     d = 0
     for key in keys:
         d += abs(d1.get(key, miss_costs) - d2.get(key, miss_costs))
+    return d
+
+
+def dict_dist2(eng_freq: dict, d2: dict, miss_costs: int = 20) -> int:
+    missing = set(d2.keys()).difference(set(eng_freq.keys()))
+    found = set(d2.keys()).intersection(set(eng_freq.keys()))
+    d = len(missing) * miss_costs
+    for key in found:
+        d += abs(eng_freq.get(key) - d2.get(key))
     return d
