@@ -41,7 +41,7 @@ print(json.dumps({k: v.decode('ascii') for k, v in possibles.items()}, indent=2)
 # Second attempt; use the distribution of letters in English to find the message that is closest to it
 target_freq = {c: v/100 * len(cypher1) for c, v in eng_freq.items()}
 
-decodes = {i: apply_key(cypher1, i) for i in range(255)}
+decodes = {i: apply_key(cypher1, i) for i in range(256)}
 
 cts = {k: get_freqtable(v) for k, v in decodes.items()}
 
