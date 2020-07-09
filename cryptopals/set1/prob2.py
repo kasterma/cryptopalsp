@@ -20,3 +20,6 @@ def xor(s1, s2):
     i2 = int.from_bytes(bytes.fromhex(s2), byteorder=sys.byteorder)
     iout = i1 ^ i2
     return iout.to_bytes(len(bytes.fromhex(s1)), byteorder=sys.byteorder).hex()
+
+def xor(s1, s2):
+    return bytes(b1 ^ b2 for b1, b2 in zip(bytes.fromhex(s1), bytes.fromhex(s2))).hex()

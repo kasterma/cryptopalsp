@@ -20,4 +20,4 @@ def from_hex(s):
 
 
 def to_base64(s):
-    return base64.b64encode(s).decode('utf-8')
+    return base64.b64encode(s).decode('ascii')
